@@ -75,7 +75,7 @@ jobs:
         with:
           ignore_paths: node_modules target
 
-  lint-dockerfile:
+  angular-cli-lint-dockerfile:
     runs-on: ubuntu-latest
     needs: update-linter-rules
     steps:
@@ -86,9 +86,9 @@ jobs:
         with:
           dockerfile: src/main/angular-cli/Dockerfile
 
-  ci-build:
+  angular-cli-ci-build:
     runs-on: ubuntu-latest
-    needs: lint-dockerfile
+    needs: angular-cli-lint-dockerfile
     permissions:
       contents: read
       security-events: write
@@ -97,65 +97,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Set docker tag ('ci-build' for main or feature branch, 'release-candidate' for release branch)
-      #   id: vars
-      #   run: |
-      #     echo ${{ github.ref }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      #     TAG='ci-build'
-      #     REF='refs/heads/release/'
-
-      #     if [[ ${{ github.ref }} == *${REF}* ]]; then
-      #       TAG='release-candidate'
-      #     fi
-
-      #     echo "tag = $TAG"
-      #     echo "::set-output name=DOCKER_TAG::$TAG"
-
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
-
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USER }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Docker image build
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: ./src/main
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
-
-      # - name: Run container and print versions of installed packages
-      #   run: |
-      #     # docker pull sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
-
-      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} npm list -g --depth=0
-
-      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} antora --version
-      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} asciidoctor --version
-      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} gulp --version
-
-      # - name: Run Snyk to check Docker image for vulnerabilities
-      #   continue-on-error: true
-      #   uses: snyk/actions/docker@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #   with:
-      #     image: sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
-      #     args: --file=src/main/Dockerfile
-
-      # - name: Upload snyk result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
+      - name: Docker image build
+        uses: docker/build-push-action@v3
+        with:
+          context: ./src/main/angular-cli
+          platforms: linux/amd64
+          push: false
+          tags: local/angular-cli:dev
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'lint-dockerfile']
+    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'angular-cli-lint-dockerfile']
     if: failure()
 
     steps:
