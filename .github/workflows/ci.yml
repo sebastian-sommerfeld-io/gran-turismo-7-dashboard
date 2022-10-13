@@ -110,7 +110,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'angular-cli-lint-dockerfile']
+    needs: ['update-linter-rules', 'angular-cli-ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'angular-cli-lint-dockerfile']
     if: failure()
 
     steps:
