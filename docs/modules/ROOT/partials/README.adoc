@@ -1,0 +1,29 @@
+Gran Turismo 7 dashboard showing live data from races 
+
+image:{github-actions-url}/{job-generate-docs}/{badge}[Github Badge, link={github-actions-url}/{job-generate-docs}]
+image:{github-actions-url}/{job-ci}/{badge}[Github Badge, link={github-actions-url}/{job-ci}]
+image:{github-actions-url}/{job-release}/{badge}[Github Badge, link={github-actions-url}/{job-release}]
+
+* Github Repository -> {url-project}
+* Documentation -> https://www.sommerfeld.io/docs/docker-images/{project-name}-docs/main
+* Published Docker images -> https://hub.docker.com/r/sommerfeldio/{image-name}
+* Docker image tag scheme -> link:https://www.sommerfeld.io/docs/projects/infrastructure-docs/main/GUIDELINES/index.html#_version_tags[Guidelines and Conventions] on www.sommerfeld.io
+* Where to file issues -> {url-project}/issues
+
+== About this image
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+== How to use this image
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+== Risks and Technical Debts
+Scale for Probability and Impact: Low, Medium and High
+
+[cols="^1,2,5a,1,1,5a", options="header"]
+|===
+|# |Title |Description |Probability |Impact |Response
+|{counter:usage} |- |- |- |- |-
+|===
+
+== Contact
+Feel free to contact me via sebastian@sommerfeld.io or visit my website https://www.sommerfeld.io.

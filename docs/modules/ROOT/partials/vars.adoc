@@ -1,0 +1,8 @@
+:image-name: gt7-dashboard
+:project-name: gran-turismo-7-dashboard
+:url-project: https://github.com/sebastian-sommerfeld-io/{project-name}
+:github-actions-url: {url-project}/actions/workflows
+:job-ci: ci.yml
+:job-release: release.yml
+:job-generate-docs: auto-generate-docs.yml
+:badge: badge.svg

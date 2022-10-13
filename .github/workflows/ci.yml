@@ -1,0 +1,168 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [ "main", "feat/*", "release/*" ]
+  pull_request:
+    branches: [ "main", "feat/*", "release/*" ]
+  schedule:
+    - cron: '0 2 * * 1' # https://crontab.guru/#0_2_*_*_1
+
+permissions:
+  contents: read
+
+jobs:
+  update-linter-rules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Download latest linter rules
+        uses: sebastian-sommerfeld-io/github-action-download-common-assets@main
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: sebastian
+          author_email: sebastian@sommerfeld.io
+          message: "[Actions Bot] refactor: auto-updated linter rules"
+
+  lint-yaml:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run yamllint
+        uses: ibiqlik/action-yamllint@v3
+
+  lint-env-files:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run dotenvlinter in container
+        run: docker run -i --rm --volume "$(pwd):/app" --workdir "/app" dotenvlinter/dotenv-linter:latest --exclude "*node_modules*" --recursive
+
+  lint-folders:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run folderslint in container
+        run: docker run -i --rm --volume "$(pwd):$(pwd)" --workdir "$(pwd)" sommerfeldio/folderslint:latest folderslint
+
+  lint-filenames:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run ls-lint in container
+        run: docker run -i --rm --volume "$(pwd):/data" --workdir "/data" lslintorg/ls-lint:1.11.0
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          ignore_paths: node_modules target
+
+  # lint-dockerfile:
+  #   runs-on: ubuntu-latest
+  #   needs: update-linter-rules
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: hadolint
+  #       uses: hadolint/hadolint-action@v2.0.0
+  #       with:
+  #         dockerfile: src/main/Dockerfile
+
+  ci-build:
+    runs-on: ubuntu-latest
+    needs: lint-dockerfile
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # - name: Set docker tag ('ci-build' for main or feature branch, 'release-candidate' for release branch)
+      #   id: vars
+      #   run: |
+      #     echo ${{ github.ref }}
+
+      #     TAG='ci-build'
+      #     REF='refs/heads/release/'
+
+      #     if [[ ${{ github.ref }} == *${REF}* ]]; then
+      #       TAG='release-candidate'
+      #     fi
+
+      #     echo "tag = $TAG"
+      #     echo "::set-output name=DOCKER_TAG::$TAG"
+
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
+
+      # - name: Login to DockerHub
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USER }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Docker image build
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: ./src/main
+      #     platforms: linux/amd64
+      #     push: true
+      #     tags: sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
+
+      # - name: Run container and print versions of installed packages
+      #   run: |
+      #     # docker pull sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
+
+      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} npm list -g --depth=0
+
+      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} antora --version
+      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} asciidoctor --version
+      #     docker run -i sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }} gulp --version
+
+      # - name: Run Snyk to check Docker image for vulnerabilities
+      #   continue-on-error: true
+      #   uses: snyk/actions/docker@master
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #   with:
+      #     image: sommerfeldio/gt7-dashboard:${{ steps.vars.outputs.DOCKER_TAG }}
+      #     args: --file=src/main/Dockerfile
+
+      # - name: Upload snyk result to GitHub Code Scanning
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: snyk.sarif
+
+  on-failure:
+    runs-on: ubuntu-latest
+    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'lint-dockerfile']
+    if: failure()
+
+    steps:
+      - name: Send Pipeline Status to Google Chat
+        if: always()
+        uses: Co-qn/google-chat-notification@releases/v1
+        with:
+          name: ${{ github.workflow }}
+          url: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+          status: failure
