@@ -75,20 +75,20 @@ jobs:
         with:
           ignore_paths: node_modules target
 
-  # lint-dockerfile:
-  #   runs-on: ubuntu-latest
-  #   needs: update-linter-rules
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #     - name: hadolint
-  #       uses: hadolint/hadolint-action@v2.0.0
-  #       with:
-  #         dockerfile: src/main/Dockerfile
+  lint-dockerfile:
+    runs-on: ubuntu-latest
+    needs: update-linter-rules
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: hadolint > Angular CLI helper
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: src/main/angular-cli/Dockerfile
 
   ci-build:
     runs-on: ubuntu-latest
-    # needs: lint-dockerfile
+    needs: lint-dockerfile
     permissions:
       contents: read
       security-events: write
@@ -155,7 +155,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck']
+    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'lint-folders', 'lint-filenames', 'shellcheck', 'lint-dockerfile']
     if: failure()
 
     steps:
