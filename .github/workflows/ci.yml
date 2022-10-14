@@ -27,7 +27,9 @@ jobs:
         with:
           node-version: 18
       - name: Install Angular CLI
-        run: cd components/webapp && npm install --location=global @angular/cli@13.3.9
+        run: npm install --location=global @angular/cli@13.3.9
+      - name: Install node modules
+        run: cd components/webapp && pwd && ls -alF && npm install
       - name: Angular build
         run: cd components/webapp && pwd && ls -alF && ng build
 
