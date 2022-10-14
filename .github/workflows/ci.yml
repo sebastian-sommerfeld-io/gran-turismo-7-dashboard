@@ -142,8 +142,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: sommerfeldio/git:${{ steps.vars.outputs.DOCKER_TAG }}
-          args: --file=src/main/Dockerfile
+          image: sommerfeldio/gt7-dashboard-webapp:${{ steps.vars.outputs.DOCKER_TAG }}
+          args: --file=components/webapp/Dockerfile
 
       - name: Upload snyk result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
