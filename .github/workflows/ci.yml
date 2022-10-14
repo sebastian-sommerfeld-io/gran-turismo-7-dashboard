@@ -46,7 +46,7 @@ jobs:
       - name: Install Angular CLI
         run: npm install --location=global @angular/cli@13.3.9
       - name: Angular build
-        run: ng build
+        run: pwd && ls -alF && ng build
 
   lint-yaml:
     runs-on: ubuntu-latest
