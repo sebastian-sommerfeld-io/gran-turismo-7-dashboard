@@ -91,7 +91,10 @@ select o in "$CMD_NG_INIT" "$CMD_NG_SERVE" "$CMD_BUILD"; do
       yamllint .
 
       echo -e "$LOG_INFO Build and run app"
-      docker-compose build --no-cache 	
+      docker-compose build --no-cache
+
+      docker run --rm mwendler/figlet "    4201"
+
       docker-compose up --remove-orphans
 
       break;;

@@ -80,11 +80,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set docker tag ('docker-builds' for main or feature branch, 'release-candidate' for release branch)
+      - name: Set docker tag ('ci-build' for main or feature branch, 'release-candidate' for release branch)
         id: vars
         run: |
           echo ${{ github.ref }}
-          TAG='docker-builds'
+          TAG='ci-build'
           REF='refs/heads/release/'
           if [[ ${{ github.ref }} == *${REF}* ]]; then
             TAG='release-candidate'
