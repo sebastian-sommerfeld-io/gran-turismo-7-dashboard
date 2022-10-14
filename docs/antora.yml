@@ -1,7 +1,7 @@
 ---
 name: gran-turismo-7-dashboard
 title: Gran Turismo 7 Dashboard
-version: feat__initial-setup
+version: main
 start_page: ROOT:index.adoc
 nav:
   - modules/ROOT/nav.adoc
