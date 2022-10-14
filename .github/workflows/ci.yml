@@ -30,6 +30,24 @@ jobs:
           author_email: sebastian@sommerfeld.io
           message: "[Actions Bot] refactor: auto-updated linter rules"
 
+  angular-builds:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Angular CLI
+        run: npm install --location=global @angular/cli@13.3.9
+      - name: Angular build
+        run: ng build
+
   lint-yaml:
     runs-on: ubuntu-latest
     needs: update-linter-rules
@@ -38,15 +56,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Run yamllint
         uses: ibiqlik/action-yamllint@v3
-
-  lint-env-files:
-    runs-on: ubuntu-latest
-    needs: update-linter-rules
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Run dotenvlinter in container
-        run: docker run -i --rm --volume "$(pwd):/app" --workdir "/app" dotenvlinter/dotenv-linter:latest --exclude "*node_modules*" --recursive
 
   # lint-filenames:
   #   runs-on: ubuntu-latest
@@ -66,7 +75,7 @@ jobs:
         with:
           ignore_paths: node_modules target
 
-  angular-cli-lint-dockerfile:
+  angular-cli-hadolint:
     runs-on: ubuntu-latest
     needs: update-linter-rules
     steps:
@@ -77,7 +86,7 @@ jobs:
         with:
           dockerfile: components/angular-cli/Dockerfile
 
-  webapp-lint-dockerfile:
+  webapp-hadolint:
     runs-on: ubuntu-latest
     needs: update-linter-rules
     steps:
@@ -88,9 +97,9 @@ jobs:
         with:
           dockerfile: components/webapp/Dockerfile
 
-  ci-build:
+  docker-builds:
     runs-on: ubuntu-latest
-    needs: ['angular-cli-lint-dockerfile', 'webapp-lint-dockerfile']
+    needs: ['angular-builds', 'angular-cli-hadolint', 'webapp-hadolint']
     permissions:
       contents: read
       security-events: write
@@ -99,11 +108,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set docker tag ('ci-build' for main or feature branch, 'release-candidate' for release branch)
+      - name: Set docker tag ('docker-builds' for main or feature branch, 'release-candidate' for release branch)
         id: vars
         run: |
           echo ${{ github.ref }}
-          TAG='ci-build'
+          TAG='docker-builds'
           REF='refs/heads/release/'
           if [[ ${{ github.ref }} == *${REF}* ]]; then
             TAG='release-candidate'
@@ -152,7 +161,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['update-linter-rules', 'ci-build', 'lint-yaml', 'lint-env-files', 'shellcheck', 'angular-cli-lint-dockerfile', 'webapp-lint-dockerfile']
+    needs: ['update-linter-rules', 'docker-builds', 'lint-yaml', 'shellcheck', 'angular-cli-hadolint', 'webapp-hadolint']
     if: failure()
 
     steps:
