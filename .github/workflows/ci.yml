@@ -49,7 +49,7 @@ jobs:
         with:
           ignore_paths: node_modules target
 
-  angular-cli-hadolint:
+  hadolint-angular-cli:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -59,7 +59,7 @@ jobs:
         with:
           dockerfile: components/angular-cli/Dockerfile
 
-  webapp-hadolint:
+  hadolint-webapp:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -71,7 +71,7 @@ jobs:
 
   docker-builds:
     runs-on: ubuntu-latest
-    needs: ['angular-builds', 'angular-cli-hadolint', 'webapp-hadolint']
+    needs: ['angular-builds', 'hadolint-angular-cli', 'hadolint-webapp']
     permissions:
       contents: read
       security-events: write
@@ -133,7 +133,7 @@ jobs:
 
   on-failure:
     runs-on: ubuntu-latest
-    needs: ['docker-builds', 'lint-yaml', 'shellcheck', 'angular-cli-hadolint', 'webapp-hadolint']
+    needs: ['docker-builds', 'lint-yaml', 'shellcheck', 'hadolint-angular-cli', 'hadolint-webapp', 'angular-builds']
     if: failure()
 
     steps:

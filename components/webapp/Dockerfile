@@ -11,7 +11,8 @@ USER ${UID}:${GID}
 COPY ./ /angular/webapp
 WORKDIR /angular/webapp
 
-RUN ng build
+RUN npm install \
+    && ng build
 
 #
 # Stage 2: run
