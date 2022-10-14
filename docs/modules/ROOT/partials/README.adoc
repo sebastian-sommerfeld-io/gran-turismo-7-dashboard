@@ -1,4 +1,4 @@
-Gran Turismo 7 dashboard showing live data from races 
+Gran Turismo 7 dashboard showing live data from races.
 
 image:{github-actions-url}/{job-generate-docs}/{badge}[Github Badge, link={github-actions-url}/{job-generate-docs}]
 image:{github-actions-url}/{job-ci}/{badge}[Github Badge, link={github-actions-url}/{job-ci}]
