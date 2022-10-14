@@ -1,0 +1,22 @@
+---
+tasks:
+  - name: Install yamllint
+    init: sudo apt-get install -y yamllint
+
+vscode:
+  extensions:
+    - asciidoctor.asciidoctor-vscode
+    - aaron-bond.better-comments
+    - ms-azuretools.vscode-docker
+    - hashicorp.terraform
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
+    - ms-python.python
+    - rebornix.ruby
+    - timonwong.shellcheck
+    - wingrunr21.vscode-ruby
+    - ms-python.python
+    - jebbs.plantuml
+    - vscjava.vscode-java-pack
+    - cschleiden.vscode-github-actions
