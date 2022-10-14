@@ -22,17 +22,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Re-Tag image sommerfeldio/gt7-dashboard from :release-candidate to :${{ steps.vars.outputs.tag }} and :latest
+      - name: Re-Tag image sommerfeldio/gt7-dashboard-webapp from :release-candidate to :${{ steps.vars.outputs.tag }} and :latest
         run: |
           VERSION_TAG="$(cut -d "v" -f2 <<< ${{ steps.vars.outputs.tag }})"
 
-          docker pull sommerfeldio/gt7-dashboard:release-candidate
+          docker pull sommerfeldio/gt7-dashboard-webapp:release-candidate
 
-          docker tag sommerfeldio/gt7-dashboard:release-candidate sommerfeldio/gt7-dashboard:latest
-          docker tag sommerfeldio/gt7-dashboard:release-candidate sommerfeldio/gt7-dashboard:$VERSION_TAG
+          docker tag sommerfeldio/gt7-dashboard-webapp:release-candidate sommerfeldio/gt7-dashboard-webapp:latest
+          docker tag sommerfeldio/gt7-dashboard-webapp:release-candidate sommerfeldio/gt7-dashboard-webapp:$VERSION_TAG
 
-          docker push sommerfeldio/gt7-dashboard:latest
-          docker push sommerfeldio/gt7-dashboard:$VERSION_TAG
+          docker push sommerfeldio/gt7-dashboard-webapp:latest
+          docker push sommerfeldio/gt7-dashboard-webapp:$VERSION_TAG
 
   docker-hub-description:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: sommerfeldio/gt7-dashboard
+          repository: sommerfeldio/gt7-dashboard-webapp
           short-description: ${{ github.event.repository.description }}
           readme-filepath: ./README.md
 
