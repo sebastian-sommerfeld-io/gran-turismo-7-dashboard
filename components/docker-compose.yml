@@ -1,0 +1,26 @@
+---
+version: "3.3"
+services:
+
+  angular_cli:
+    image: local/angular-cli:dev
+    container_name: angular_cli
+    build: angular-cli
+
+  api-adapter:
+    image: local/api-adapter:dev
+    container_name: api-adapter
+    build: api-adapter
+    ports:
+      - 4242:80
+    depends_on:
+      - angular_cli
+
+  webapp:
+    image: local/gt7-webapp:dev
+    container_name: webapp
+    build: webapp
+    ports:
+      - 4201:80
+    depends_on:
+      - api-adapter
