@@ -89,7 +89,7 @@ jobs:
 
   docker-builds:
     runs-on: ubuntu-latest
-    needs: ['angular-builds', 'hadolint-angular-cli', 'hadolint-webapp']
+    needs: ['angular-builds', 'hadolint-angular-cli', 'hadolint-webapp', 'hadolint-api-adapter']
     permissions:
       contents: read
       security-events: write
