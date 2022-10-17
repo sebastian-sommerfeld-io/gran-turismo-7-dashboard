@@ -6,8 +6,6 @@
 FROM local/angular-cli:dev AS build
 LABEL maintainer="sebastian@sommerfeld.io"
 
-USER ${UID}:${GID}
-
 COPY ./ /angular/webapp
 WORKDIR /angular/webapp
 
