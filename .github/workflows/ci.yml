@@ -126,7 +126,7 @@ jobs:
       - name: Re-tag images and deploy to DockerHub
         run: |
           docker tag local/api-adapter:dev sommerfeldio/gt7-dashboard-api-adapter:${{ steps.vars.outputs.DOCKER_TAG }}
-          docker tag local/api-adapter:dev sommerfeldio/gt7-dashboard-webapp:${{ steps.vars.outputs.DOCKER_TAG }}
+          docker tag local/gt7-webapp:dev sommerfeldio/gt7-dashboard-webapp:${{ steps.vars.outputs.DOCKER_TAG }}
           docker push sommerfeldio/gt7-dashboard-api-adapter:${{ steps.vars.outputs.DOCKER_TAG }}
           docker push sommerfeldio/gt7-dashboard-webapp:${{ steps.vars.outputs.DOCKER_TAG }}
 
