@@ -117,7 +117,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker-compose build
-        run: docker-compose build
+        run: |
+          (
+            cd components || exit
+            docker-compose build          
+          )
 
       - name: Re-tag images and deploy to DockerHub
         run: |
