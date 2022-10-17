@@ -16,6 +16,10 @@ ports:
     description: Angulars dev preview
     port: 4200
     onOpen: open-browser
+  - name: Final Docker image for the dashboard webapp
+    description: Angulars dev preview
+    port: 4201
+    onOpen: open-browser
 
 vscode:
   extensions:
