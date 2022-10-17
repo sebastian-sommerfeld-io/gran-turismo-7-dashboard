@@ -1,4 +1,4 @@
-Gran Turismo 7 dashboard showing live data from races 
+Gran Turismo 7 dashboard showing live data from races.
 
 image:{github-actions-url}/{job-generate-docs}/{badge}[Github Badge, link={github-actions-url}/{job-generate-docs}]
 image:{github-actions-url}/{job-ci}/{badge}[Github Badge, link={github-actions-url}/{job-ci}]
@@ -10,10 +10,54 @@ image:{github-actions-url}/{job-release}/{badge}[Github Badge, link={github-acti
 * Docker image tag scheme -> link:https://www.sommerfeld.io/docs/projects/infrastructure-docs/main/GUIDELINES/index.html#_version_tags[Guidelines and Conventions] on www.sommerfeld.io
 * Where to file issues -> {url-project}/issues
 
-== About this image
+== About this project
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-== How to use this image
+[plantuml, puml-build-image, svg]
+----
+@startuml
+
+skinparam linetype ortho
+skinparam monochrome false
+skinparam componentStyle uml2
+skinparam backgroundColor #fff
+skinparam ArrowColor black
+skinparam NoteBorderColor Grey
+skinparam BoundaryBorderColor Grey
+skinparam ComponentBorderColor Black
+skinparam NoteBackgroundColor #fdfdfd
+skinparam defaultTextAlignment center
+skinparam activity {
+FontName Ubuntu
+}
+
+component ps5 as "PlayStation5" <<Console>>{
+  label gt7 as "Running Game:\nGran Turismso 7"
+
+  boundary send as "UDP Send\nPort 33739"
+  boundary recieve as "UDP Revieve\nPort 33739"
+
+  gt7 -[hidden]right- send
+  send -[hidden]down- recieve
+}
+
+component adapter as "Webservice Adapter" <<Docker>>
+component webapp as "Angular Webapp" <<Docker>>
+
+adapter <-left- send
+adapter -left-> recieve
+
+label rest as "HTTP\nREST"
+adapter -right- rest
+rest -right-> webapp
+
+label note as "Translate UDP communication into\nREST webservice for Angular app"
+note ~up~ adapter
+
+@enduml
+----
+
+== How to use this project
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 == Risks and Technical Debts

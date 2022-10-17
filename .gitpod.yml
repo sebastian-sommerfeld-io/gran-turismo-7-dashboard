@@ -2,6 +2,20 @@
 tasks:
   - name: Install yamllint
     init: sudo apt-get install -y yamllint
+  - name: Install node_modules for Angular webapp
+    init: |
+      (
+        cd components/webapp || exit
+        npm install
+      )
+  - name: Build Docker image local/angular-cli:dev
+    init: docker build -t local/angular-cli:dev components/angular-cli
+
+ports:
+  - name: Angular Serve
+    description: Angulars dev preview
+    port: 4200
+    onOpen: open-browser
 
 vscode:
   extensions:

@@ -6,4 +6,3 @@ ARG GID=1000
 
 RUN npm install --location=global @angular/cli@13.3.9
 
-USER ${UID}:${GID}
