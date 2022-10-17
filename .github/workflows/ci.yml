@@ -120,7 +120,7 @@ jobs:
         run: |
           (
             cd components || exit
-            docker-compose build          
+            docker-compose build
           )
 
       - name: Re-tag images and deploy to DockerHub
