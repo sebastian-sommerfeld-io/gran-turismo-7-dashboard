@@ -17,7 +17,6 @@ set -o nounset
 
 CMD_NPM_INSTALL="INIT___install_node_modules"
 CMD_NG_INIT="INIT___new_angular_project"
-CMD_NG_LINT="RUN___ng_lint"
 CMD_NG_SERVE="RUN___ng_serve"
 CMD_BUILD="RUN___build_and_run_docker_image"
 
