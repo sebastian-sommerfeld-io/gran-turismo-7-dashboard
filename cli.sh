@@ -17,6 +17,7 @@ set -o nounset
 
 CMD_NPM_INSTALL="INIT___install_node_modules"
 CMD_NG_INIT="INIT___new_angular_project"
+CMD_NG_ADD_COMPONENT="INIT___add_component"
 CMD_NG_SERVE="RUN___ng_serve"
 CMD_BUILD="RUN___build_and_run_docker_image"
 
@@ -28,7 +29,7 @@ WEBAPP_DIR="webapp"
 
 # @description Initialize new angular project using ``ng new`` in ``components/webapp``.
 #
-# @exitcode 8 If ``components/webapp`` is already present. 
+# @exitcode 8 If ``components/webapp`` is already present
 ng_init() {
   (
     cd "$COMPONENTS_DIR/angular-cli" || exit
@@ -57,6 +58,7 @@ ng_init() {
 
     echo -e "$LOG_INFO Initialize Angular webapp"
     docker run --rm \
+      -u "$(id -u "$USER"):$(id -g "$USER")" \
       --volume "$(pwd):$(pwd)" \
       --workdir "$(pwd)" \
       "$ANTORA_CLI_IMAGE" ng new "$WEBAPP_DIR"
@@ -81,6 +83,32 @@ ng_serve() {
 }
 
 
+# @description Wrap ``ng generate component <name>`` in function.
+#
+# @arg $1 string Component name
+#
+# @exitcode 8 If mandatory param is missing
+ng_add_compponent() {
+  if [ -z "$1" ]
+  then
+    echo -e "$LOG_ERROR Param missing: component name"
+    echo -e "$LOG_ERROR exit" && exit 8
+  fi
+
+  (
+    cd "$COMPONENTS_DIR/$WEBAPP_DIR" || exit
+    
+    echo -e "$LOG_INFO Add angular component to $COMPONENTS_DIR/$WEBAPP_DIR"
+    docker run --rm \
+      -u "$(id -u "$USER"):$(id -g "$USER")" \
+      --volume "$(pwd):$(pwd)" \
+      --workdir "$(pwd)" \
+      --network host \
+      "$ANTORA_CLI_IMAGE" ng generate component "$1"
+  )
+}
+
+
 # @description Run ``npm install`` in ``components/webapp``.
 npm_install() {
   (
@@ -88,6 +116,7 @@ npm_install() {
     
     echo -e "$LOG_INFO Setup node modules (npm install)"
     docker run --rm \
+      -u "$(id -u "$USER"):$(id -g "$USER")" \
       --volume "$(pwd):$(pwd)" \
       --workdir "$(pwd)" \
       node:18.9.0-bullseye-slim npm install
@@ -123,13 +152,17 @@ build_and_run() {
 
 
 echo -e "$LOG_INFO What should I do?"
-select o in "$CMD_NG_SERVE" "$CMD_BUILD" "$CMD_NG_INIT" "$CMD_NPM_INSTALL"; do
+select o in "$CMD_NG_SERVE" "$CMD_BUILD" "$CMD_NG_INIT" "$CMD_NPM_INSTALL" "$CMD_NG_ADD_COMPONENT"; do
   case "$o" in
     "$CMD_NG_SERVE" )
       ng_serve
       break;;
     "$CMD_BUILD" )
       build_and_run
+      break;;
+    "$CMD_NG_ADD_COMPONENT" )
+      read -rp "Enter component name: " NAME
+      ng_add_compponent "$NAME"
       break;;
     "$CMD_NG_INIT" )
       ng_init
