@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-4">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">My Laps</th>
+                    <th scope="col">Sector 1</th>
+                    <th scope="col">Sector 2</th>
+                    <th scope="col">Sector 3</th>
+                    <th scope="col">Lap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let laptime of my_laps; index as i">
+                    <td>{{ laptime.type }}</td>
+                    <td>{{ laptime.sector1 | number }}</td>
+                    <td>{{ laptime.sector2 | number }}</td>
+                    <td>{{ laptime.sector3 | number }}</td>
+                    <td>{{ laptime.lap | number }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-8">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Pos</th>
+                    <th scope="col">Intervall</th>
+                    <th scope="col">Driver</th>
+                    <th scope="col">Sector 1</th>
+                    <th scope="col">Sector 2</th>
+                    <th scope="col">Sector 3</th>
+                    <th scope="col">Lap</th>
+                    <th scope="col">Tyre</th>
+                    <th scope="col">Delta Last Lap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let laptime of laptimes; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ laptime.interval | number }}</td>
+                    <td>{{ laptime.driver }}</td>
+                    <td>{{ laptime.sector1 | number }}</td>
+                    <td>{{ laptime.sector2 | number }}</td>
+                    <td>{{ laptime.sector3 | number }}</td>
+                    <td>{{ laptime.lap | number }}</td>
+                    <td>{{ laptime.tyre }}</td>
+                    <td>{{ laptime.lap_delta | number }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>

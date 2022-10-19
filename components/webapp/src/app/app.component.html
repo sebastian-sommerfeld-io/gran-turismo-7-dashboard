@@ -1,13 +1,23 @@
 <header><h1>Gran Turismo 7 Dashboard</h1></header>
 
-<ul ngbNav #nav="ngbNav" class="nav-tabs">
-  <li ngbNavItem>
-    <a ngbNavLink>First</a>
-    <ng-template ngbNavContent>First content</ng-template>
-  </li>
-  <li ngbNavItem>
-    <a ngbNavLink>Second</a>
-    <ng-template ngbNavContent>Second content</ng-template>
-  </li>
-</ul>
-<div [ngbNavOutlet]="nav"></div>
+<main>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Race Data</a>
+      <ng-template ngbNavContent>
+        
+        <app-racedata></app-racedata>
+
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Second</a>
+      <ng-template ngbNavContent>
+        
+        Second content
+      
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</main>
