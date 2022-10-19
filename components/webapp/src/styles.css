@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --header-bg: #161B22;
+    --body-bg: #0D1117;
+    --body-text-color: rgb(201, 209, 217);
+    --border-color: #21262d;
+}
+
+body {
+    background-color: var(--body-bg);
+    color: var(--body-text-color);
+    font-weight: 300;
+}
+
+body app-root header h1 {
+    background-color: var(--header-bg);
+    font-size: 1rem;
+    padding: 1rem 1rem .75rem 1rem;
+}
+
+body app-root main ul.nav-tabs {
+    border-color: var(--border-color);
+}
+
+body app-root main ul.nav-tabs li.nav-item a {
+    background: transparent;
+    border: none;
+    color: var(--body-text-color);
+}
+body app-root main ul.nav-tabs li.nav-item a.nav-link.active {
+    background: transparent;
+    border: none;
+    color: #fff;
+    border-bottom: solid 2px rgb(247, 129, 102);
+}
+
+body app-root main div.tab-content  {
+    padding: 2rem;
+    /* border: solid 1px #dee2e6;
+    border-top: none; */
+}
+
+/* ===== table ===== */
+/* body app-root main div.tab-content table.table.table-striped */
+body app-root main div.tab-content table {
+    border: solid 1px var(--border-color);
+    color: var(--body-text-color);
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+body app-root main div.tab-content table th {
+    background-color: var(--header-bg);
+}

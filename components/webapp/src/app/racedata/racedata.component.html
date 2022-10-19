@@ -14,10 +14,10 @@
             <tbody>
                 <tr *ngFor="let laptime of my_laps; index as i">
                     <td>{{ laptime.type }}</td>
-                    <td>{{ laptime.sector1 | number }}</td>
-                    <td>{{ laptime.sector2 | number }}</td>
-                    <td>{{ laptime.sector3 | number }}</td>
-                    <td>{{ laptime.lap | number }}</td>
+                    <td class="right">{{ laptime.sector1 | number }}</td>
+                    <td class="right">{{ laptime.sector2 | number }}</td>
+                    <td class="right">{{ laptime.sector3 | number }}</td>
+                    <td class="right">{{ laptime.lap | number }}</td>
                 </tr>
             </tbody>
         </table>
@@ -28,28 +28,28 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Pos</th>
-                    <th scope="col">Intervall</th>
+                    <th scope="col" class="center">Pos</th>
+                    <th scope="col" class="right">Intervall</th>
                     <th scope="col">Driver</th>
-                    <th scope="col">Sector 1</th>
-                    <th scope="col">Sector 2</th>
-                    <th scope="col">Sector 3</th>
-                    <th scope="col">Lap</th>
-                    <th scope="col">Tyre</th>
-                    <th scope="col">Delta Last Lap</th>
+                    <th scope="col" class="right">Sector 1</th>
+                    <th scope="col" class="right">Sector 2</th>
+                    <th scope="col" class="right">Sector 3</th>
+                    <th scope="col" class="right">Lap</th>
+                    <th scope="col" class="center">Tyre</th>
+                    <th scope="col" class="right">Delta Last Lap</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let laptime of laptimes; index as i">
-                    <th scope="row">{{ i + 1 }}</th>
-                    <td>{{ laptime.interval | number }}</td>
+                    <td scope="row" class="center">{{ i + 1 }}</td>
+                    <td class="right">{{ laptime.interval | number }}</td>
                     <td>{{ laptime.driver }}</td>
-                    <td>{{ laptime.sector1 | number }}</td>
-                    <td>{{ laptime.sector2 | number }}</td>
-                    <td>{{ laptime.sector3 | number }}</td>
-                    <td>{{ laptime.lap | number }}</td>
-                    <td>{{ laptime.tyre }}</td>
-                    <td>{{ laptime.lap_delta | number }}</td>
+                    <td class="right">{{ laptime.sector1 | number }}</td>
+                    <td class="right">{{ laptime.sector2 | number }}</td>
+                    <td class="right">{{ laptime.sector3 | number }}</td>
+                    <td class="right">{{ laptime.lap | number }}</td>
+                    <td class="center">{{ laptime.tyre }}</td>
+                    <td class="right">{{ laptime.lap_delta | number }}</td>
                 </tr>
             </tbody>
         </table>

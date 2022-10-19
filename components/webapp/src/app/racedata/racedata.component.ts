@@ -31,6 +31,186 @@ const LAPTIMES: LapTimes[] = [
     lap: 120,
     tyre: 'H',
     lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
+	},
+	{
+		driver: 'Some Other Driver',
+		interval: -5,
+		sector1: 30,
+		sector2: 40,
+    sector3: 50,
+    lap: 120,
+    tyre: 'H',
+    lap_delta: -3
 	}
 ];
 
